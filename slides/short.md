@@ -13,16 +13,40 @@ An agent can improve the number by breaking the measurement.
 
 ## Three states, two diffs
 
-```text
-Working files --git add--> Staging --git commit--> HEAD
-
-       git diff                  git diff --staged
-   working vs staging             staging vs HEAD
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \definecolor{workingblue}{HTML}{24658A}
+  \definecolor{stagingorange}{HTML}{A65B12}
+  \definecolor{commitgreen}{HTML}{287363}
+  \node[draw=workingblue,fill=workingblue!5,line width=1pt,
+    minimum width=3.6cm,minimum height=1.85cm,align=center] (work) at (0,0)
+    {\textcolor{workingblue}{\textbf{1. Working files}}\\[7pt]
+     \small What you edit\\\small and run};
+  \node[draw=stagingorange,fill=stagingorange!5,line width=1pt,
+    minimum width=3.6cm,minimum height=1.85cm,align=center] (stage) at (4.9,0)
+    {\textcolor{stagingorange}{\textbf{2. Staging area}}\\[7pt]
+     \small Selected content\\\small for the next commit};
+  \node[draw=commitgreen,fill=commitgreen!5,line width=1pt,
+    minimum width=3.6cm,minimum height=1.85cm,align=center] (head) at (9.8,0)
+    {\textcolor{commitgreen}{\textbf{3. Commit (HEAD)}}\\[7pt]
+     \small Your recorded\\\small checkpoint};
+  \draw[->,thick] (work.east) -- (stage.west);
+  \node[font=\footnotesize,align=center] at (2.45,1.25) {\texttt{git add}};
+  \draw[->,thick] (stage.east) -- (head.west);
+  \node[font=\footnotesize,align=center] at (7.35,1.25) {\texttt{git commit}};
+  \draw[workingblue,thick,<->] (0,-1.35) -- (4.75,-1.35);
+  \draw[stagingorange,thick,<->] (5.05,-1.35) -- (9.8,-1.35);
+  \node[align=center,anchor=north] at (2.4,-1.5)
+    {\texttt{git diff}\\[3pt]\small Working files vs staging};
+  \node[align=center,anchor=north] at (7.4,-1.5)
+    {\texttt{git diff --staged}\\[3pt]\small Staging vs HEAD};
+\end{tikzpicture}
+\end{center}
+\vspace{0.15cm}
+\textbf{Remember:} \texttt{git add} snapshots the file now.\\
+Later edits stay in working files until you stage them again.
 ```
-
-`git add` snapshots the file now; later edits are not staged.
-
-A commit records selected files. A branch names a commit.
 
 ## Accept only a reviewed change
 
