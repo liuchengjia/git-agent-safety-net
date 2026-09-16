@@ -1,28 +1,15 @@
-# Conclusion — spine
-
-> Note form only; never rendered. See `01-context.concepts.md` for what each
-> heading is for.
-
-## Purpose
-
-Say what the reader can now do, point at what comes next, and name what is still
-open.
+# Conclusion spine
 
 ## Claims
-
-- (claim)
+- The reader can predict staged-versus-working behavior.
+- The checkpoint/review/evaluate/accept loop carries into C1, C2/C4, and evaluator provenance.
 
 ## Decisions
-
-- (decision — and what it was chosen over)
+- Ask a transfer question rather than repeat a command list.
+- Close with the next experiment, explicitly not an implemented PySR baseline.
 
 ## Open questions
-
-> Overlaps with § Open edges in the prose — but this list is for the team, and
-> that section is for the reader. Not everything here is ready to ship there.
-
-- (question)
+- None blocking this lesson.
 
 ## Not doing
-
-- (excluded, and why)
+- Promising full experiment reproducibility from a commit alone.

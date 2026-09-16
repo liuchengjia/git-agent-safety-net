@@ -1,28 +1,17 @@
-# Motivation — spine
-
-> Note form only; never rendered. See `01-context.concepts.md` for what each
-> heading is for.
-
-## Purpose
-
-Say WHY the topic is important for agentic development, and bound where it
-applies.
+# Motivation spine
 
 ## Claims
-
-> Here these are the value claims: what it buys, what it prevents, where it stops
-> being the right tool. Each one should be something a reader could disagree with.
-
-- (claim)
+- A lower score can be caused by evaluator corruption.
+- A checkpoint makes recorded code recoverable; tests and review determine acceptance.
+- Git does not reverse external effects or record the whole runtime environment.
 
 ## Decisions
-
-- (decision — and what it was chosen over)
+- Use cancellation of signed errors as the concrete failure throughout.
+- State the limits before demonstrating destructive recovery.
+- Distinguish history separation from process isolation.
 
 ## Open questions
-
-- (question)
+- None blocking delivery.
 
 ## Not doing
-
-- (excluded, and why)
+- Credential remediation procedures or agent permission systems.

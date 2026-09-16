@@ -213,6 +213,14 @@ hole.
 
 ## House conventions
 
+- **Timed presentation exception (requested September 2026):** The 10-minute
+  session uses `slides/short.md` for a 7-minute talk and 3-minute demonstration.
+  `sections/*.prose.md` remains the complete handout and website source.
+  `just slides` builds the short deck; `just slides-full` preserves the full
+  teaching deck. This intentional projection prevents removal of useful
+  reference material merely to satisfy a live time limit. Keep the short
+  deck's claims and demo commands aligned with the handout and lab tests.
+
 > **This section is yours.** Everything above describes the framework; put
 > anything specific to *your* project here — notation you have settled on,
 > sections that are off limits, a collaborator's preferences, deliberate

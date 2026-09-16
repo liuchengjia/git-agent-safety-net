@@ -1,35 +1,13 @@
-# Motivation
+# Why an agent needs a checkpoint
 
-<!-- Every `##` becomes one slide. One idea each. -->
+## A better score can hide a broken evaluator
 
-## Why it matters for agentic development
+Our example scores predictions against observations using mean squared error (MSE). Lower is better. An agent replacing squared errors with signed errors can make mistakes cancel: the score improves while the evaluator becomes wrong.
 
-> The case, made concretely. What does this tool, technique, or notion let an
-> agentic system do that is hard or impossible without it?
->
-> Tie it to agentic development specifically — not to software in general. If the
-> answer would read the same for any programming topic, you have not made the
-> case yet.
+**Commit before the agent edits. Inspect the diff and run fixed checks before accepting the result.** Record the code commit, data version, environment, and seed in an experiment log; a commit alone does not reproduce a run.
 
-Replace this paragraph.
+## What Git cannot undo
 
-## What goes wrong without it
+A commit protects recorded files. It cannot reverse sent messages, API charges, database writes, or changes outside the repository. A branch separates history; it is not a security sandbox or a second working directory.
 
-> The failure it prevents, shown rather than asserted. A concrete situation that
-> goes badly, and how it goes badly.
->
-> This is the paragraph that makes the tutorial worth reading. A reader who has
-> felt the failure will follow you through the mechanics; one who has not will
-> skim. Use a real case if you have one.
-
-Replace this paragraph.
-
-## When to reach for it
-
-> The bounds, stated by you rather than discovered by a frustrated reader. What
-> it is good for, and — just as important — when it is the wrong tool.
->
-> A technique with honestly stated limits is more usable than one presented as
-> universal, because the reader can tell whether their situation is in scope.
-
-Replace this paragraph.
+Keep credentials and generated data out of commits. `.gitignore` affects untracked files; it does not erase an already tracked secret. Rotate exposed credentials and follow the host's removal procedure. [@gitignore]

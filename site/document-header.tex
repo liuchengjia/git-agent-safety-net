@@ -1,0 +1,6 @@
+% Keep the contents page separate from the tutorial and avoid orphaned steps.
+\usepackage{etoolbox}
+\usepackage{needspace}
+\apptocmd{\tableofcontents}{\clearpage}{}{}
+\preto\section{\Needspace{18\baselineskip}}
+\preto\subsection{\Needspace{14\baselineskip}}

@@ -1,99 +1,61 @@
-# nel-course
+# Git & Version Control: an agent safety net
 
-A template for **evolving a document by critique**: one artifact, one Markdown
-source, three outputs, improved one round at a time by a panel of independent
-reviewers whose findings are reconciled into a single ranked docket.
+**Chengjia Liu & Yiyang Yan · Tutorial 02**
 
-Clone it, replace the content in `sections/`, and run `/round`.
+[Website](https://liuchengjia.github.io/git-agent-safety-net/) · [Short slides](https://liuchengjia.github.io/git-agent-safety-net/slides.pdf) · [Full handout](https://liuchengjia.github.io/git-agent-safety-net/document.pdf)
 
-> **[CLAUDE.md](CLAUDE.md) is the method.** How a round works, why the reviewers
-> are independent, what the two registers of a section are for, and the
-> guardrails — all of it lives there, in one file. This README only covers
-> getting the toolchain running and starting a project.
+The live session is **7 minutes of explanation + 3 minutes of demonstration**. Its nine-page deck covers checkpoints, the two diffs, accepting/recovering changes, branch labels, and Git's limits. The last page is the live-demo command card. The handout and website retain the complete tutorial and references.
 
----
+## Present
 
-## What you get
+- [Short deck source](slides/short.md) → `output/slides.pdf`.
+- [Presenter guide](docs/presenter-guide.md) → exact timings, before-class setup, and the three-minute demo.
+- [Full tutorial](sections/03-content.prose.md) → `output/document.pdf` and `_site/index.html`.
+- [Proposal](topic.md), [audience](metadata.yaml), and [review history](rounds/round-001/SYNTHESIS.md).
 
-```
-sections/           the source — one pair of files per section
-personas/           the reviewer panel, plus the aggregator
-rounds/             committed critique history: one folder per round
-site/               the website's template and stylesheet
-figures/            figures, referenced from the prose
-topic.md            the proposal — what this tutorial is and promises
-metadata.yaml       title, authors, and the declared audience
-justfile            every build recipe
-```
+Agent edits are deterministic simulations. There is no LLM dependency and no PySR execution. The demonstration shows a broken metric producing a deceptively low score, a failing fixed check, and recovery from the committed version.
 
-| | Command | Output |
-| --- | --- | --- |
-| Document | `just doc` | `output/document.pdf` |
-| Presentation | `just slides` | `output/slides.pdf` |
-| Website | `just site` | `_site/index.html` |
+## Run and rehearse
 
-`just build` makes all three. `just serve` previews the site locally.
+Requirements: Git 2.28+ and Python 3.9+ (`python3` where appropriate).
 
-## Setup
-
-Install the toolchain. On macOS:
-
-```
-brew install pandoc just librsvg
-brew install --cask mactex-no-gui
+```sh
+python examples/create_demo.py ../git-safety-demo-live
+cd ../git-safety-demo-live
+git init -b main
 ```
 
-On Debian or Ubuntu:
+Follow the [presenter guide](docs/presenter-guide.md) to prepare a tested checkpoint **before** the ten-minute slot. The helper refuses nonempty destinations.
 
-```
-sudo apt-get install -y pandoc just texlive-xetex texlive-latex-extra \
-                        texlive-fonts-recommended librsvg2-bin
+From this tutorial's root, rehearse the full safety exercise automatically:
+
+```sh
+python examples/verify_demo.py
 ```
 
-Then confirm it works before changing anything:
+## Build
 
-```
+Install Pandoc, just, XeLaTeX/Metropolis, and librsvg. On Ubuntu 24.04:
+
+```sh
+sudo apt-get install just pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-pictures librsvg2-bin
 just build
+python3 scripts/verify_site.py
+just serve
 ```
 
-The placeholder content renders, so a failure here is a toolchain problem, not
-your writing.
+`just slides` builds the nine-page timed deck. `just slides-full` optionally builds the complete lecture deck. `just doc` builds the complete handout. PDFs and `_site/` are generated and ignored by Git.
 
-## Start your project
+For the portable Windows setup, put Pandoc, just, Tectonic, and Git's POSIX utilities on PATH, then run `just engine=tectonic build`. Tectonic downloads its TeX dependencies on first use.
 
-1. **Say what you are doing.** Fill in [topic.md](topic.md) — the proposal: what
-   the topic is, why it belongs in this course, what the reader will be able to
-   do afterwards, and what is out of scope. Every reviewer reads it, and the
-   panel judges the tutorial against it.
-2. **Declare your reader.** Edit [metadata.yaml](metadata.yaml) — the title, the
-   authors, and especially `audience`. The pedagogy reviewer judges the document
-   against whatever you write there, so a vague audience buys you a vague review.
-3. **Write.** Replace the placeholders in `sections/`. Each section is a pair:
-   `<name>.prose.md` ships, `<name>.concepts.md` holds the spine behind it.
-   Section order is the numeric filename prefix — add a section by adding a
-   numbered pair.
-4. **Check it renders.** `just build`.
-5. **Run a round.** `/round` in Claude Code. It produces a ranked docket at
-   `rounds/round-NNN/SYNTHESIS.md` and stops; you decide what to act on.
+## GitHub Pages
 
-## Publishing
+The [workflow](.github/workflows/pages.yml) tests the demo, builds the PDFs/site, and checks local links. Pull requests build without deploying. Pushes to `main` and manual runs on `main` deploy the tested artifact to Pages. Publishing permissions exist only in the deployment job.
 
-The site deploys to GitHub Pages on demand — never automatically on push.
+One-time setting: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Subsequent updates publish after a successful `main` build. To trigger manually: `gh workflow run pages.yml --ref main` or use the Actions tab.
 
-One-time, in the repository settings: **Settings -> Pages -> Source: GitHub
-Actions**. Then:
+## Method and provenance
 
-```
-git push
-just deploy
-```
+The full tutorial follows the [course brief](https://github.com/EduDocs/agentic_development/blob/main/tutorials/tutorial-02-git-version-control.md) and the original [course template repository](https://github.com/AgenticDevelopmentDiscovery/nec-02-git-version-control). The original history is retained. Official technical references are in `references.bib`.
 
-CI installs the toolchain and runs `just build`, so it publishes exactly what
-`just serve` showed you. Nothing generated is stored in git.
-
-## Derived from
-
-The `nel-operator` engine, reduced to its teaching core. The section-pair
-convention, the reviewer-panel critic, and the never-reverted single manuscript
-come from there; the compile and metrics gates, the archive, the scaffolder, and
-the unattended loop deliberately do not.
+[CLAUDE.md](CLAUDE.md) records the independent-review method and the deliberate short-deck exception. Round 001 reviewed the full tutorial; the later time-limited deck has its own build, visual checks, and timed presenter plan.

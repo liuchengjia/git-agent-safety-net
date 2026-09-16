@@ -1,0 +1,13 @@
+% The default Metropolis cover can exceed a 16:9 frame with a subtitle/date.
+% Keep its typography and colors, with explicit spacing and no font reduction.
+\setbeamertemplate{title page}{%
+  {\usebeamerfont{title}\inserttitle\par}
+  \vspace{0.3cm}
+  {\usebeamerfont{subtitle}\insertsubtitle\par}
+  \vspace{0.35cm}
+  {\usebeamercolor[fg]{title separator}\rule{\textwidth}{0.4pt}\par}
+  \vspace{0.35cm}
+  {\usebeamerfont{author}\insertauthor\par}
+  \vspace{0.15cm}
+  {\usebeamerfont{date}\insertdate\par}
+}

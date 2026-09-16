@@ -1,6 +1,7 @@
-# nel-course — one Markdown source, three outputs.
+# Git safety net — full handout/site and a timed presentation.
 #
-# Everything is built by pandoc from `sections/*.prose.md`. There is no engine
+# The handout/site use `sections/*.prose.md`; the timed deck uses `slides/short.md`.
+# Everything is built by pandoc. There is no engine
 # and no generator: the file list is a shell glob, so the numeric prefixes on the
 # section filenames ARE the document order. Add a section by adding a numbered
 # pair; nothing needs to be registered anywhere.
@@ -33,19 +34,27 @@ doc:
     mkdir -p {{outdir}}
     {{pandoc}} sections/*.prose.md {{common}} \
         --pdf-engine={{engine}} \
-        --toc --toc-depth=2 --number-sections \
+        --toc --toc-depth=2 --number-sections --include-in-header=site/document-header.tex \
         -V documentclass=article -V fontsize=11pt -V geometry:margin=1in \
         -o {{outdir}}/document.pdf
 
 # --- Presentation -----------------------------------------------------------
 
-# output/slides.pdf — every `##` heading becomes one slide.
+# output/slides.pdf — 7-minute talk plus a 3-minute demo card (9 pages).
 slides:
+    mkdir -p {{outdir}}
+    {{pandoc}} slides/short.md {{common}} \
+        --pdf-engine={{engine}} \
+        -t beamer --slide-level=2 --include-in-header=site/slides-header.tex \
+        -o {{outdir}}/slides.pdf
+
+# Optional full lecture deck; not the version used in the 10-minute slot.
+slides-full:
     mkdir -p {{outdir}}
     {{pandoc}} sections/*.prose.md {{common}} \
         --pdf-engine={{engine}} \
-        -t beamer --slide-level=2 \
-        -o {{outdir}}/slides.pdf
+        -t beamer --slide-level=2 --include-in-header=site/slides-header.tex \
+        -o {{outdir}}/slides-full.pdf
 
 # Overflowing slides are not a build problem to work around. They are the
 # clearest signal you have that a `##` unit is carrying more than one idea, and
