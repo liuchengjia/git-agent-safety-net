@@ -1,5 +1,7 @@
 # Presenter guide: 7 minutes + 3 minutes
 
+For the complete two-speaker English script with Chinese cues, see [speaker-script.md](speaker-script.md).
+
 The public `slides.pdf` contains 9 pages: a title, seven teaching slides, and one live-demo command card. No section-divider or bibliography slides interrupt the talk. Full explanations and references remain in the handout and website.
 
 ## Seven-minute talk
